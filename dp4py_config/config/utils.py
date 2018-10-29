@@ -19,6 +19,19 @@ def git_sha() -> Optional[str]:
     return None
 
 
+def read_git_sha() -> Optional[str]:
+    """
+    Reads the 'app_version' file and returns the git sha
+    :return:
+    """
+    path = os.path.dirname(__file__)
+    fname = "{path}/../app_version".format(path=path)
+    with open(fname, "r") as f:
+        git_sha = f.read()
+        if git_sha is not None:
+            return git_sha.rstrip()
+
+
 def bool_env(var_name, default=False):
     """
     Get an environment variable coerced to a boolean value.
