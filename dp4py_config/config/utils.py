@@ -19,17 +19,26 @@ def git_sha() -> Optional[str]:
     return None
 
 
-def read_git_sha() -> Optional[str]:
+def write_app_version(filename):
     """
-    Reads the 'app_version' file and returns the git sha
+    Writes the app version (git sha) to file
+    :param filename
     :return:
     """
-    path = os.path.dirname(__file__)
-    fname = "{path}/../app_version".format(path=path)
-    with open(fname, "r") as f:
-        git_sha = f.read()
-        if git_sha is not None:
-            return git_sha.rstrip()
+    with open(filename, "w") as f:
+        f.write(git_sha())
+
+
+def read_git_sha(filename) -> Optional[str]:
+    """
+    Reads the 'app_version' file and returns the git sha
+    :param filename
+    :return:
+    """
+    with open(filename, "r") as f:
+        sha = f.read()
+        if sha is not None:
+            return sha.rstrip()
 
 
 def bool_env(var_name, default=False):
